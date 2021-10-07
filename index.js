@@ -1,27 +1,9 @@
 const core = require('@actions/core');
-const fs = require("fs").promises;
+const {executeAction} = require("./replace");
+
 async function run() {
   try {
-    const files = core.getInput('files');
-    const vars_string = core.getInput('replacements');
-    const filenames = files.replace(' ', '').split(',');
-    const vars = vars_string.split(',');
-    console.log(`Processing: ${filenames.length} Files`);
-    for(const filename of filenames) {
-      const data = await fs.readFile(filename, 'utf8');
-      let result = data;
-      console.log(data);
-      for (let i = 0; i < vars.length; i++) {
-        const firstEqual = vars[i].indexOf('=');
-        const key = vars[i].substr(0, firstEqual);
-        const value = vars[i].substr(firstEqual + 1);
-        const regx = new RegExp(key, 'g');
-        result = result.replace(regx, value);
-      }
-      console.log('Processed File: ' + filename)
-      console.log(result);
-      await fs.writeFile(filename, result, 'utf8');
-    }
+      await executeAction();
   }
   catch (error) {
     core.setFailed(error.message);
