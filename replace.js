@@ -2,15 +2,7 @@ const core = require('@actions/core');
 const {processReplacements} = require("./replace");
 const fs = require("fs").promises;
 
-
-module.exports.executeAction = async () => {
-    const files = core.getInput('files', {required: true});
-    console.log(files);
-    const replacements = core.getInput('replacements', {required: true});
-    await processReplacements(files, replacements);
-}
-
-module.exports.processReplacements = async (files, replacements) => {
+async function executeReplacement(files, replacements) {
     const filenames = files.replace(' ', '').split(',');
     const vars = replacements.split(',');
     console.log(`Processing: ${filenames.length} Files`);
@@ -31,3 +23,12 @@ module.exports.processReplacements = async (files, replacements) => {
         await fs.writeFile(filename, result, 'utf8');
     }
 }
+
+module.exports.executeAction = async () => {
+    const files = core.getInput('files', {required: true});
+    console.log(files);
+    const replacements = core.getInput('replacements', {required: true});
+    await executeReplacement(files, replacements);
+}
+
+module.exports.processReplacements = executeReplacement;
