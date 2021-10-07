@@ -6,7 +6,7 @@ async function run() {
     const vars_string = core.getInput('replacements');
     const filenames = files.replace(' ', '').split(',');
     const vars = vars_string.split(',');
-    console.log('files l:'+ filenames.length);
+    console.log(`Processing: ${filenames.length} Files`);
     for(const filename of filenames) {
       const data = await fs.readFile(filename, 'utf8');
       let result = data;
@@ -18,7 +18,8 @@ async function run() {
         const regx = new RegExp(key, 'g');
         result = result.replace(regx, value);
       }
-      console.log('file2: ' + filename)
+      console.log('Processed File: ' + filename)
+      console.log(result);
       await fs.writeFile(filename, result, 'utf8');
     }
   }
