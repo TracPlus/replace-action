@@ -1,6 +1,6 @@
 # replace-action
 
-This lightweight action replaces substrings in files. It is useful for CI process when you needto update your configs depending on the previous steps results.
+This lightweight action replaces substrings in files. It is useful for CI process when you need to update your configs depending on the previous steps results.
 
 # Usage
 
@@ -8,10 +8,10 @@ See [action.yml](action.yml)
 
 ```yaml
 
-uses: datamonsters/replace-action
+uses: TracPlus/replace-action
 with:
   files: 'path1/file1,path2/file2'
-  replacements: 'foo=bar,$FOO=Bar_Value'
+  replacements: 'foo=bar,@FOO=Bar_Value'
 ```
 
 # Example
@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: simple-app
-        image: $IMAGE
+        image: @IMAGE
         env:
         - name: HELLO_MSG
           value: stranger
@@ -59,7 +59,7 @@ jobs:
       uses: ./.github/actions/replace
       with:
         files: app-deployment.yaml
-        replacements: '$IMAGE=${{ secrets.AWS_ACC_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/demo:${{ github.sha }}'
+        replacements: '@IMAGE=${{ secrets.AWS_ACC_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/demo:${{ github.sha }}'
     
     - name: Apply centraldashboard config
       uses: steebchen/kubectl@master
