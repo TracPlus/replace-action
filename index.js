@@ -27,4 +27,6 @@ async function run() {
   }
 }
 
-run()
+run().then(() => {
+  console.log("Completed");
+})
