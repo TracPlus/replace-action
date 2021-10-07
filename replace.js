@@ -1,5 +1,4 @@
 const core = require('@actions/core');
-const {processReplacements} = require("./replace");
 const fs = require("fs").promises;
 
 async function executeReplacement(files, replacements) {
