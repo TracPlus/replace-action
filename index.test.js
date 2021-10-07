@@ -1,6 +1,5 @@
-const core = require('@actions/core');
 const assert = require("assert");
-const {executeAction, processReplacements} = require("./replace");
+const {processReplacements} = require("./replace");
 const fs = require("fs").promises;
 
 // shows how the runner will run a javascript action with env / stdout protocol
@@ -18,4 +17,7 @@ test('Transforms Tokens Correctly', async () => {
     const data = await fs.readFile("test.yaml", "utf-8");
     assert(data.indexOf("staging") !== -1);
     assert(data.indexOf("kB504q0fP/wIoMu9hlC1C") !== -1)
+    await fs.unlink('test.yaml');
+
+    console.log("Test data removed.");
 })
