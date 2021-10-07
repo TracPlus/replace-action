@@ -15,7 +15,8 @@ async function run() {
         const firstEqual = vars[i].indexOf('=');
         const key = vars[i].substr(0, firstEqual);
         const value = vars[i].substr(firstEqual + 1);
-        result = result.replaceAll(key, value)
+        const regx = new RegExp(key, 'g');
+        result = result.replace(regx, value);
       }
       console.log('file2: ' + filename)
       await fs.writeFile(filename, result, 'utf8');
