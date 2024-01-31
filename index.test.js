@@ -1,6 +1,7 @@
-const assert = require("assert");
-const {processReplacements} = require("./replace");
-const fs = require("fs").promises;
+const test = require("node:test");
+const assert = require("node:assert");
+const { processReplacements } = require("./replace");
+const fs = require("node:fs").promises;
 
 // shows how the runner will run a javascript action with env / stdout protocol
 test('Transforms Tokens Correctly', async () => {
